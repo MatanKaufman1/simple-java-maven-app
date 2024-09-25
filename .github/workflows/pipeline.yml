@@ -1,7 +1,7 @@
 name: Java CI with Maven
 on:
   push:
-    branches: [ "master", "dev" ]
+    branches: [ "feature" ]
 
 jobs:
   build:
@@ -38,13 +38,9 @@ jobs:
         git tag $NEW_TAG
         git push origin $NEW_TAG
 
-    - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.7.0
-      with:
-        checkout-fetch-depth: 0
-        java-version: 8
-        java-distribution: temurin
-        maven-version: 3.9.2
+    
+        
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
