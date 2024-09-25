@@ -1,0 +1,24 @@
+name: Ec2 Ecr Creation
+
+on:
+  push:
+    paths:
+      - 'terraform/*'
+jobs:
+  set-inferstruction:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/Checkout@v4
+
+      - name: Set up terraform
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.1.7"
+
+      - name: Initioalize Terraform
+        run: |
+           terraform init &&
+           terraform validate &&
+           terraform plan &&
+           terraform apply --auto-approve
