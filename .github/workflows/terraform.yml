@@ -1,25 +1,31 @@
-name: Ec2 Ecr Creation
+name: Terraform Infrastructure
+
 on:
   push:
     paths:
-      - 'terraform/***'
+      - 'terraform/**'  # Only run this job if files in the terraform directory change
+
 jobs:
-  set-inferstruction:
-    runs-on: ubuntu-24.04
+  terraform:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/Checkout@v4
+        uses: actions/checkout@v3
 
-      - name: Set up terraform
-      - uses: hashicorp/setup-terraform@v3
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.1.7"
+          terraform_version: "1.2.0"
 
       - name: Initialize Terraform
         run: terraform init
-      - name: terraform validate
+
+      - name: Validate Terraform
         run: terraform validate
-      - name: terraform plan
+
+      - name: Plan Terraform Changes
         run: terraform plan
-      - name: terraform apply
+
+      - name: Apply Terraform Changes
         run: terraform apply --auto-approve
