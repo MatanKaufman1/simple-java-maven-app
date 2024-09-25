@@ -2,7 +2,7 @@ name: Ec2 Ecr Creation
 on:
   push:
     paths:
-      - 'terraform/*'
+      - 'terraform/***'
 jobs:
   set-inferstruction:
     runs-on: ubuntu-24.04
