@@ -6,6 +6,8 @@ on:
 jobs:
   versioning:
     runs-on: ubuntu-24.04
+    outputs:
+      new_version: ${{ steps.version.outputs.new_version }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
