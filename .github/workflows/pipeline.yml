@@ -4,6 +4,17 @@ on:
     branches: [ "master", "dev" ]
 
 jobs:
+  snyk-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=critical
+
   versioning:
     runs-on: ubuntu-24.04
     outputs:
@@ -13,7 +24,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Fetch last tags and set version
       id: version
       run: |
@@ -32,7 +42,6 @@ jobs:
         echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
         echo "::set-output name=new_version::$NEW_VERSION"
         echo "Final new_version=$NEW_VERSION"
-
     - name: Push new tag
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
