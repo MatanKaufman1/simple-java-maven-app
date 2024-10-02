@@ -14,3 +14,6 @@ myprojectenv
 !/.mvn/wrapper/maven-wrapper.jar
 docker-compose.yml
 .idea
+*.key
+*.pub
+*.cache_ggshield
